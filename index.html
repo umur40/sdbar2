@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detaylı Sidebar Menü</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS kodları buraya gelecek */
+
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: white;
+    transition: all 0.3s;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+.menu-item {
+    margin: 5px 0;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.menu-item a:hover {
+    background-color: #5e3438;
+}
+
+.menu-item.active a {
+    background-color: #0c021b;
+}
+
+.menu-item i {
+    margin-right: 10px;
+    font-size: 1rem;
+}
+
+.menu-item span {
+    flex: 1;
+}
+
+.dropdown-icon {
+    transition: transform 0.3s;
+}
+
+.with-submenu.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #a04b84;
+}
+
+.with-submenu.active .submenu {
+    max-height: 500px;
+}
+
+.submenu a {
+    padding: 10px 20px 10px 50px !important;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.submenu a:hover {
+    background-color: #2881d4 !important;
+}
+
+.sidebar-footer {
+    padding: 15px;
+    border-top: 1px solid rgba(119, 39, 39, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.user-role {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+.logout-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Küçültülmüş sidebar */
+.sidebar.collapsed {
+    width: 70px;
+}
+
+.sidebar.collapsed .sidebar-header h2,
+.sidebar.collapsed .menu-item span,
+.sidebar.collapsed .user-info,
+.sidebar.collapsed .dropdown-icon {
+    display: none;
+}
+
+.sidebar.collapsed .menu-item a {
+    justify-content: center;
+}
+
+.sidebar.collapsed .menu-item i {
+    margin-right: 0;
+    font-size: 1.2rem;
+}
+
+.sidebar.collapsed .submenu a {
+    padding-left: 20px !important;
+}
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Menü</h2>
+            <button class="toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <div class="menu-item active">
+                <a href="#">
+                    <i class="fas fa-home"></i>
+                    <span>Ana Sayfa</span>
+                </a>
+            </div>
+            
+            <div class="menu-item with-submenu">
+                <a href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Ürünler</span>
+                    <i class="fas fa-chevron-down dropdown-icon"></i>
+                </a>
+                <div class="submenu">
+                    <a href="#">Tüm Ürünler</a>
+                    <a href="#">Yeni Ürünler</a>
+                    <a href="#">İndirimdekiler</a>
+                    <a href="#">Kategoriler</a>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    <span>Müşteriler</span>
+                </a>
+            </div>
+            
+            <div class="menu-item with-submenu">
+                <a href="#">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Raporlar</span>
+                    <i class="fas fa-chevron-down dropdown-icon"></i>
+                </a>
+                <div class="submenu">
+                    <a href="#">Satış Raporları</a>
+                    <a href="#">Müşteri Raporları</a>
+                    <a href="#">Stok Raporları</a>
+                </div>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span>Ayarlar</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Yardım</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="Kullanıcı Resmi">
+                <div class="user-info">
+                    <span class="user-name">UMUR YAĞMUR</span>
+                    <span class="user-role">Yönetici</span>
+                </div>
+            </div>
+            <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // JavaScript kodları buraya gelecek
+        document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.querySelector('.toggle-btn');
+    const sidebar = document.querySelector('.sidebar');
+    const submenuItems = document.querySelectorAll('.with-submenu');
+    
+    // Sidebar'ı açıp kapama
+    toggleBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('collapsed');
+    });
+    
+    // Alt menüleri açıp kapama
+    submenuItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // Eğer tıklanan öğe bir link ise ve alt menü varsa
+            if (e.target.tagName === 'A' || e.target.parentElement.tagName === 'A') {
+                e.preventDefault();
+                this.classList.toggle('active');
+            }
+        });
+    });
+});
+    </script>
+</body>
+</html>
